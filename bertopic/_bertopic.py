@@ -804,7 +804,8 @@ class BERTopic:
     def topics_per_class(self,
                          docs: List[str],
                          classes: Union[List[int], List[str]],
-                         global_tuning: bool = True) -> pd.DataFrame:
+                         global_tuning: bool = True,
+                         words_per_topic_class: int = 5) -> pd.DataFrame:
         """ Create topics per class
 
         To create the topics per class, BERTopic needs to be already fitted once.
@@ -865,7 +866,7 @@ class BERTopic:
 
             # Fill dataframe with results
             topics_at_class = [(topic,
-                                ", ".join([words[0] for words in values][:5]),
+                                ", ".join([words[0] for words in values][:words_per_topic_class]),
                                 topic_frequency[topic],
                                 class_) for topic, values in words_per_topic.items()]
             topics_per_class.extend(topics_at_class)
